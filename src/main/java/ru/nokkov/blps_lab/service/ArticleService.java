@@ -53,7 +53,6 @@ public class ArticleService {
 
     // FIXME: как здесь разграничить доступ к опубликованным и неопубликованным статьям?
     public Article getArticle(Long articleId) {
-        // logger.info("getArticle(): id = " + articleId);
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Article not found"));
 
         if (article.isAccepted() && article.getPublicationDate() != null) {

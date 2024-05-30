@@ -6,43 +6,38 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
-@Entity
-public class Article {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String title;
-    private String author;
-    private String content;
+    @Data
+    @Entity
+    public class Article {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+        private String title;
+        private String author;
+        private String content;
 
-    @JsonProperty("publication_date")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime publicationDate;
+        @JsonProperty("publication_date")
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime publicationDate;
 
-    @JsonProperty("is_accepted")
-    private boolean isAccepted;
+        @JsonProperty("is_accepted")
+        private boolean isAccepted;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "article_id")
-    private List<Comment> comments;
+        @OneToMany(cascade = CascadeType.ALL)
+        @JoinColumn(name = "article_id")
+        private List<Comment> comments;
 
-    private int views;
+        private int views;
 
-    public void addComment(Comment comment) {
-        comments.add(comment);
+        public void addComment(Comment comment) {
+            comments.add(comment);
+        }
+
+        public void incrementViews() {
+            views++;
+        }
     }
-
-    public void incrementViews() {
-        views++;
-    }
-}
 
