@@ -8,9 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import jakarta.transaction.Transactional;
 import ru.nokkov.blps_lab.article.model.Article;
 import ru.nokkov.blps_lab.article.model.ArticleDTO;
 import ru.nokkov.blps_lab.article.model.Comment;
@@ -34,6 +35,7 @@ public class ArticleService {
         partnerService.registerArticle(article.getId(), null);
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void addComment(Long articleId, Comment comment) {
         Article article = getArticle(articleId);
 
@@ -62,6 +64,7 @@ public class ArticleService {
         return article;
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateArticle(Long articleId, Article updatedArticle) {
         Article article = getArticle(articleId);
         article.setTitle(updatedArticle.getTitle());
@@ -70,12 +73,14 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
+    @Transactional
     public void acceptArticle(Long articleId) {
         Article article = getArticle(articleId);
         article.setAccepted(true);
         articleRepository.save(article);
     }
 
+    @Transactional
     public void setPublicationDate(Long articleId, LocalDateTime publicationDate) {
         Article article = getArticle(articleId);
 
