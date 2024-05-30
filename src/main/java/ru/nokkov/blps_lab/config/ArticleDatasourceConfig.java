@@ -51,11 +51,12 @@ public class ArticleDatasourceConfig {
                 .dataSource(dataSource)
                 .packages("ru.nokkov.blps_lab.article")
                 .persistenceUnit("articlePersistenceUnit")
+
                 .build();
     }
 
-    @Bean(name = "articleTxManager")
     @Primary
+    @Bean(name = "articleTxManager")
     public PlatformTransactionManager transactionManager(
             @Qualifier("articleEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);

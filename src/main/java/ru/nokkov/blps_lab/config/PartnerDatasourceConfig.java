@@ -53,6 +53,7 @@ public class PartnerDatasourceConfig {
     }
 
     @Bean(name = "partnerTxManager")
+    @ConfigurationProperties("spring.jpa")
     public PlatformTransactionManager transactionManager(
             @Qualifier("partnerEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
 
