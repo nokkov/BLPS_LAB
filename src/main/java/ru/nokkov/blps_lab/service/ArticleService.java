@@ -110,7 +110,7 @@ public class ArticleService {
     public List<ArticleDTO> getPublishedArticles(int page, int size, String author, String title) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Article> articles = articleRepository.getPublishedArticles(pageRequest, author, title);
-        List<ArticleDTO> list = articles.stream().map(
+        return articles.stream().map(
                 article -> {
                     ArticleDTO articleDTO = new ArticleDTO();
                     articleDTO.setId(article.getId());
@@ -119,7 +119,6 @@ public class ArticleService {
                     return articleDTO;
                 }
         ).collect(Collectors.toList());
-        return list;
     }
 
     public List<Article> getAllArticles() {
