@@ -79,7 +79,7 @@ public class ArticleController {
         articleService.deleteAllArticles();
     }
 
-    @GetMapping(value = "/article/{id}/views")
+    @GetMapping(value = "/articles/{id}/views")
     public int getViews(@PathVariable Long id) {
         return articleService.getViews(id);
     }
