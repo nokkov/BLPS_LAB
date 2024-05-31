@@ -17,3 +17,8 @@ VALUES ('manager_user', 'manager_password', false, true, false);
 
 INSERT INTO article_user (username, password, is_moderator, is_manager, is_admin)
 VALUES ('moderator_user', 'moderator_password', true, false, false);
+
+-- unaccepted articles
+INSERT INTO article (title, author, content, publication_date, is_accepted, views) VALUES
+('Exploring the World of Concept Cars', 'Sophia Taylor', 'Concept cars showcase the potential future of automotive design. This article explores some of the most interesting concept cars unveiled this year.', null, false, 0),
+('Electric vs. Hydrogen: The Battle for the Future', 'Liam Davis', 'As the automotive industry shifts towards alternative fuels, the debate between electric and hydrogen vehicles heats up. This article compares these two technologies.', null, false, 0);

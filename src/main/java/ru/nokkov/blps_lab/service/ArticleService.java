@@ -51,7 +51,6 @@ public class ArticleService {
         articleRepository.deleteById(articleId);
     }
 
-    // FIXME: как здесь разграничить доступ к опубликованным и неопубликованным статьям?
     public Article getArticle(Long articleId) {
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Article not found"));
 
