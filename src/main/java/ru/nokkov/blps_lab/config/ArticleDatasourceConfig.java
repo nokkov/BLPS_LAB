@@ -49,9 +49,8 @@ public class ArticleDatasourceConfig {
     ) {
         return builder
                 .dataSource(dataSource)
-                .packages("ru.nokkov.blps_lab.article")
+                .packages("ru.nokkov.blps_lab.article", "ru.nokkov.blps_lab.user")
                 .persistenceUnit("articlePersistenceUnit")
-
                 .build();
     }
 
