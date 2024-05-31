@@ -1,5 +1,7 @@
 package ru.nokkov.blps_lab.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +26,8 @@ public class UserDetailsLoginModule implements LoginModule {
     private String username;
     private boolean isLoginSucceeded;
 
+    Logger logger = LoggerFactory.getLogger(UserDetailsLoginModule.class);
+
     @Override
     public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
         this.subject = subject;
@@ -34,7 +38,7 @@ public class UserDetailsLoginModule implements LoginModule {
 
     @Override
     public boolean login() throws LoginException {
-        NameCallback nameCallback = new NameCallback("Username: ");
+        NameCallback nameCallback = new NameCallback("username");
         PasswordCallback passwordCallback = new PasswordCallback("password", false);
 
         try {
@@ -43,6 +47,10 @@ public class UserDetailsLoginModule implements LoginModule {
             UserDetails user = userDetailsService.loadUserByUsername(username);
             String password = new String(passwordCallback.getPassword());
             isLoginSucceeded = passwordEncoder.matches(password, user.getPassword());
+            logger.info("{} logged in", user.getUsername());
+            logger.info("{} with password", user.getPassword());
+            logger.info(isLoginSucceeded ? "Login succeeded" : "Login failed");
+            logger.info("{} = callback password", password);
         } catch (UsernameNotFoundException | IOException | UnsupportedCallbackException e) {
             isLoginSucceeded = false;
         }
