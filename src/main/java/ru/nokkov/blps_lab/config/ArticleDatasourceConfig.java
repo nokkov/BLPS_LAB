@@ -21,7 +21,7 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 
 @EnableJpaRepositories(
-        basePackages = "ru.nokkov.blps_lab.article",
+        basePackages = {"ru.nokkov.blps_lab.article", "ru.nokkov.blps_lab.user"},
         entityManagerFactoryRef = "articleEntityManagerFactory",
         transactionManagerRef = "partnerTxManager"
 )
