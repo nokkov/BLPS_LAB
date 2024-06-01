@@ -21,8 +21,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 @EnableJpaRepositories(
         basePackages = "ru.nokkov.blps_lab.partner",
-        entityManagerFactoryRef = "partnerEntityManagerFactory",
-        transactionManagerRef = "partnerTxManager"
+        entityManagerFactoryRef = "partnerEntityManagerFactory"
 )
 public class PartnerDatasourceConfig {
 
@@ -49,13 +48,5 @@ public class PartnerDatasourceConfig {
                 .packages("ru.nokkov.blps_lab.partner")
                 .persistenceUnit("partner")
                 .build();
-    }
-
-    @Bean(name = "partnerTxManager")
-    @ConfigurationProperties("spring.jpa")
-    public PlatformTransactionManager transactionManager(
-            @Qualifier("partnerEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-
-        return new JpaTransactionManager(entityManagerFactory);
     }
 }
