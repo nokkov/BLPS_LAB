@@ -26,8 +26,4 @@ public class PartnerService {
 
         partnerRepository.save(partnerUnit);
     }
-
-    public List<PartnerUnit> getAllRegistrations() {
-        return partnerRepository.findAll();
-    }
 }

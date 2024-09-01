@@ -61,7 +61,7 @@ public class ArticleController {
     }
 
     @PatchMapping(value = "/articles/{id}/publish")
-    public void publicateArticle(@PathVariable Long id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
+    public void publishArticle(@PathVariable Long id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
         articleService.setPublicationDate(id, date);
     }
 
@@ -77,10 +77,5 @@ public class ArticleController {
     @DeleteMapping(value = "/all-articles")
     public void deleteAllArticles() {
         articleService.deleteAllArticles();
-    }
-
-    @GetMapping(value = "/articles/{id}/views")
-    public int getViews(@PathVariable Long id) {
-        return articleService.getViews(id);
     }
 }
